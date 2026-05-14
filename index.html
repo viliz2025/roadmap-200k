@@ -929,11 +929,10 @@
 
     const SUPABASE_CONFIG = {
       enabled: true,
-      // Вставьте сюда Project URL из Supabase: Project Settings -> API -> Project URL.
-      url: "https://YOUR_PROJECT_ID.supabase.co",
-      // Вставьте сюда только публичный anon key: Project Settings -> API -> anon public.
-      // Никогда не вставляйте service_role key в HTML: он даёт полный доступ к базе.
-      anonKey: "YOUR_PUBLIC_ANON_KEY",
+      // Project URL из Supabase. Вставлен без /rest/v1/.
+      url: "https://sdhfexufnieqsjwpimgm.supabase.co",
+      // Публичный publishable key. service_role / secret key сюда вставлять нельзя.
+      anonKey: "sb_publishable_I3Vr9aJxKqr0nDEVLMQE8Q_gsCauGZ2",
       tableName: "roadmap_reports",
       ownerId: "lyubov-main-roadmap"
     };
