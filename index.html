@@ -742,7 +742,7 @@
       <div class="hero-content">
         <div class="eyebrow">CYBER ROADMAP · GAMEDEV QUEST</div>
         <h1>Дорожная карта</h1>
-        <p class="subtitle">Интерактивная карта пути: от первой мини-игры до портфеля браузерных игр и цели 200 000 ₽ в месяц. </p>
+        <p class="subtitle">Интерактивная карта пути: от первой мини-игры до портфеля браузерных игр и цели 200 000 ₽ в месяц. Уровни меняют состояние, мотоцикл движется, отчёты сохраняются локально и готовятся к выгрузке в Supabase.</p>
         <div class="hero-actions">
           <div class="pill"><span id="goalIcon"></span> Цель: 200 000 ₽ / месяц</div>
           <button class="button-primary" onclick="scrollToMap()">Открыть карту</button>
@@ -855,11 +855,10 @@
 
     const SUPABASE_CONFIG = {
       enabled: true,
-      // Вставьте сюда Project URL из Supabase: Project Settings -> API -> Project URL.
-      url: "https://YOUR_PROJECT_ID.supabase.co",
-      // Вставьте сюда только публичный anon key: Project Settings -> API -> anon public.
-      // Никогда не вставляйте service_role key в HTML: он даёт полный доступ к базе.
-      anonKey: "YOUR_PUBLIC_ANON_KEY",
+      // Project URL из Supabase. Вставлен без /rest/v1/.
+      url: "https://sdhfexufnieqsjwpimgm.supabase.co",
+      // Публичный publishable key. service_role / secret key сюда вставлять нельзя.
+      anonKey: "sb_publishable_I3Vr9aJxKqr0nDEVLMQE8Q_gsCauGZ2",
       tableName: "roadmap_reports",
       ownerId: "lyubov-main-roadmap"
     };
