@@ -1,0 +1,1404 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Кибер-карта: 200 000 ₽ / месяц</title>
+  <style>
+    :root {
+      --bg: #03040d;
+      --cyan: #18e8ff;
+      --blue: #4aa3ff;
+      --pink: #ff35e8;
+      --purple: #935cff;
+      --orange: #ffae2e;
+      --green: #56ff9b;
+      --red: #ff5a8a;
+      --text: #effbff;
+      --muted: #9eb7d6;
+      --shadow: 0 0 28px rgba(24, 232, 255, 0.22), 0 0 80px rgba(255, 53, 232, 0.13);
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(circle at 20% 10%, rgba(24,232,255,0.18), transparent 28%),
+        radial-gradient(circle at 80% 0%, rgba(255,53,232,0.18), transparent 26%),
+        radial-gradient(circle at 50% 80%, rgba(147,92,255,0.13), transparent 32%),
+        linear-gradient(180deg, #050719 0%, #01020a 100%);
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      background-image:
+        linear-gradient(rgba(24,232,255,0.055) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(24,232,255,0.055) 1px, transparent 1px);
+      background-size: 46px 46px;
+      mask-image: linear-gradient(to bottom, rgba(0,0,0,0.85), transparent 88%);
+      z-index: -2;
+    }
+
+    body::after {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      background: repeating-linear-gradient(180deg, rgba(255,255,255,0.024) 0, rgba(255,255,255,0.024) 1px, transparent 1px, transparent 7px);
+      opacity: 0.22;
+      mix-blend-mode: screen;
+      z-index: 20;
+    }
+
+    .app {
+      width: min(1280px, 94vw);
+      margin: 0 auto;
+      padding: 28px 0 64px;
+    }
+
+    .cyber-icon {
+      width: 28px;
+      height: 28px;
+      display: inline-block;
+      vertical-align: -7px;
+      filter: drop-shadow(0 0 8px rgba(24,232,255,0.72));
+      flex: 0 0 auto;
+    }
+
+    .cyber-icon.small {
+      width: 18px;
+      height: 18px;
+      vertical-align: -4px;
+    }
+
+    .cyber-icon.big {
+      width: 44px;
+      height: 44px;
+      vertical-align: -12px;
+    }
+
+    .hero {
+      position: relative;
+      min-height: 560px;
+      overflow: hidden;
+      border-radius: 34px;
+      border: 1px solid rgba(24,232,255,0.38);
+      background:
+        linear-gradient(90deg, rgba(3,4,13,0.98) 0%, rgba(3,4,13,0.82) 44%, rgba(3,4,13,0.30) 100%),
+        url("hero.jpg") center right / cover no-repeat;
+      box-shadow: var(--shadow);
+      isolation: isolate;
+    }
+
+    .hero::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(circle at 75% 35%, rgba(24,232,255,0.32), transparent 22%),
+        linear-gradient(135deg, rgba(255,53,232,0.14), transparent 45%);
+      z-index: -1;
+    }
+
+    .hero::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(120deg, transparent 0%, rgba(24,232,255,0.08) 40%, transparent 42%),
+        linear-gradient(300deg, transparent 0%, rgba(255,53,232,0.09) 62%, transparent 64%);
+      animation: scan 5s linear infinite;
+      opacity: 0.7;
+      pointer-events: none;
+    }
+
+    @keyframes scan {
+      0% { transform: translateX(-10%); }
+      100% { transform: translateX(10%); }
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      width: min(700px, 100%);
+      padding: clamp(26px, 5vw, 52px);
+    }
+
+
+    .eyebrow {
+      display: inline-flex;
+      gap: 8px;
+      align-items: center;
+      margin-bottom: 16px;
+      color: var(--cyan);
+      font-size: 13px;
+      font-weight: 900;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      text-shadow: 0 0 14px rgba(24,232,255,0.7);
+    }
+
+    h1 {
+      margin: 0 0 14px;
+      font-size: clamp(38px, 7vw, 88px);
+      line-height: 0.9;
+      letter-spacing: 0.03em;
+      text-transform: uppercase;
+      text-shadow: 0 0 18px rgba(24,232,255,0.85), 0 0 38px rgba(255,53,232,0.25);
+    }
+
+    .subtitle {
+      margin: 0 0 24px;
+      max-width: 650px;
+      color: #cfe5ff;
+      font-size: clamp(16px, 2vw, 22px);
+      line-height: 1.45;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      align-items: center;
+    }
+
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 12px 16px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,174,46,0.58);
+      background: rgba(255,174,46,0.09);
+      color: #ffd994;
+      font-weight: 950;
+      box-shadow: 0 0 24px rgba(255,174,46,0.2);
+    }
+
+    .button-primary, .action {
+      border: 1px solid rgba(24,232,255,0.58);
+      background: linear-gradient(135deg, rgba(24,232,255,0.24), rgba(255,53,232,0.21));
+      color: var(--text);
+      border-radius: 999px;
+      padding: 13px 18px;
+      font-weight: 950;
+      cursor: pointer;
+      box-shadow: 0 0 24px rgba(24,232,255,0.18);
+      font: inherit;
+    }
+
+    .button-primary:disabled, .action:disabled {
+      opacity: 0.55;
+      cursor: wait;
+    }
+
+    .dashboard {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+      margin: 22px 0;
+    }
+
+    .card, .map, .side-card {
+      border: 1px solid rgba(24,232,255,0.32);
+      background: linear-gradient(135deg, rgba(7, 13, 32, 0.86), rgba(11, 18, 44, 0.72));
+      border-radius: 24px;
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(14px);
+    }
+
+    .card { padding: 18px; min-height: 112px; }
+    .card-label { color: var(--muted); font-size: 13px; margin-bottom: 8px; }
+    .card-value { color: var(--cyan); font-size: 34px; font-weight: 950; }
+    .card-value.small { font-size: 18px; line-height: 1.25; }
+
+    .progress-wrap {
+      height: 14px;
+      margin-top: 12px;
+      overflow: hidden;
+      border-radius: 999px;
+      border: 1px solid rgba(24,232,255,0.22);
+      background: rgba(255,255,255,0.08);
+    }
+
+    .progress-bar {
+      height: 100%;
+      width: 0;
+      background: linear-gradient(90deg, var(--cyan), var(--pink), var(--orange));
+      transition: width 450ms ease;
+      box-shadow: 0 0 20px rgba(24,232,255,0.9);
+    }
+
+    .main-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 360px;
+      gap: 22px;
+      align-items: start;
+    }
+
+    .map {
+      position: relative;
+      padding: clamp(18px, 3vw, 30px);
+      overflow: hidden;
+      min-height: 720px;
+    }
+
+    .map::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      background:
+        radial-gradient(circle at 18% 18%, rgba(24,232,255,0.12), transparent 24%),
+        radial-gradient(circle at 78% 58%, rgba(255,53,232,0.10), transparent 28%);
+    }
+
+    .map-title {
+      display: flex;
+      justify-content: space-between;
+      gap: 16px;
+      align-items: center;
+      margin-bottom: 22px;
+      position: relative;
+      z-index: 4;
+    }
+
+    .map-title h2 { margin: 0; font-size: 24px; }
+    .map-title span { color: var(--muted); font-size: 14px; }
+
+    .map-board {
+      position: relative;
+      z-index: 3;
+      display: grid;
+      grid-template-columns: minmax(230px, 1fr) 128px minmax(230px, 1fr);
+      gap: 18px 24px;
+      align-items: center;
+      padding: 10px 0 4px;
+    }
+
+    .road-column {
+      grid-column: 2;
+      grid-row: 1 / span 8;
+      align-self: stretch;
+      position: relative;
+      min-height: 940px;
+      display: flex;
+      justify-content: center;
+      pointer-events: none;
+    }
+
+    .road-line {
+      position: absolute;
+      top: 22px;
+      bottom: 22px;
+      width: 18px;
+      border-radius: 999px;
+      background: linear-gradient(180deg, var(--cyan), var(--purple), var(--pink), var(--orange));
+      box-shadow: 0 0 22px rgba(24,232,255,0.75), 0 0 42px rgba(255,53,232,0.32);
+      overflow: hidden;
+    }
+
+    .road-line::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: repeating-linear-gradient(180deg, rgba(255,255,255,0.9) 0 14px, transparent 14px 34px);
+      opacity: 0.52;
+      animation: roadMove 900ms linear infinite;
+    }
+
+    @keyframes roadMove { to { transform: translateY(34px); } }
+
+    .bike-token {
+      position: absolute;
+      top: var(--bike-offset, 0px);
+      left: 50%;
+      width: 54px;
+      height: 54px;
+      z-index: 8;
+      pointer-events: none;
+      transform: translateX(14px);
+      transition: top 600ms cubic-bezier(.2,.9,.2,1), transform 250ms ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 42px;
+      line-height: 1;
+      filter: drop-shadow(0 0 8px rgba(24,232,255,0.65));
+    }
+
+    .bike-token::after {
+      content: "";
+      position: absolute;
+      left: -18px;
+      top: 30px;
+      width: 22px;
+      height: 3px;
+      border-radius: 999px;
+      background: linear-gradient(90deg, transparent, rgba(24,232,255,0.85));
+      box-shadow: 0 0 10px rgba(24,232,255,0.7);
+    }
+
+    .node {
+      --color: var(--cyan);
+      position: relative;
+      min-height: 140px;
+      width: 100%;
+      padding: 16px;
+      border-radius: 22px;
+      border: 1px solid var(--color);
+      color: var(--text);
+      text-align: left;
+      background: rgba(4, 9, 23, 0.78);
+      box-shadow: 0 0 24px color-mix(in srgb, var(--color) 28%, transparent), inset 0 0 22px rgba(255,255,255,0.04);
+      cursor: pointer;
+      transition: transform 180ms ease, filter 180ms ease, background 180ms ease;
+      font: inherit;
+      z-index: 3;
+    }
+
+    .node:hover { transform: translateY(-2px); filter: brightness(1.15); }
+
+    .node.done {
+      border-color: rgba(86,255,155,0.92);
+      background: rgba(5, 36, 29, 0.82);
+      box-shadow: 0 0 30px rgba(86,255,155,0.30), inset 0 0 22px rgba(86,255,155,0.08);
+    }
+
+    .node.in-progress {
+      border-color: rgba(255,174,46,0.85);
+      box-shadow: 0 0 28px rgba(255,174,46,0.22), inset 0 0 22px rgba(255,174,46,0.05);
+    }
+
+    .node.left { grid-column: 1; }
+    .node.right { grid-column: 3; }
+
+    .node.left::after, .node.right::after {
+      content: "";
+      position: absolute;
+      top: 50%;
+      width: 24px;
+      height: 2px;
+      background: var(--color);
+      box-shadow: 0 0 12px var(--color);
+    }
+
+    .node.left::after { right: -24px; }
+    .node.right::after { left: -24px; }
+
+    .node-number {
+      width: 42px;
+      height: 42px;
+      display: grid;
+      place-items: center;
+      border-radius: 14px;
+      background: var(--color);
+      color: #020410;
+      font-size: 22px;
+      font-weight: 950;
+      box-shadow: 0 0 22px color-mix(in srgb, var(--color) 75%, transparent);
+      margin-bottom: 10px;
+    }
+
+    .node.done .node-number { background: var(--green); }
+    .node.in-progress .node-number { background: var(--orange); }
+    .node h3 { margin: 0 0 8px; font-size: 16px; line-height: 1.18; display: flex; align-items: center; gap: 8px; }
+    .reward-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      margin-top: 9px;
+      padding: 7px 9px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,174,46,0.48);
+      background: rgba(255,174,46,0.10);
+      color: #ffd994;
+      font-size: 12px;
+      font-weight: 900;
+      box-shadow: 0 0 16px rgba(255,174,46,0.16);
+    }
+    .node small { display: inline-flex; color: #ffd994; font-weight: 850; }
+    .node .status { margin-top: 10px; color: var(--muted); font-size: 12px; }
+    .node.done .status { color: #baffdf; }
+    .node.in-progress .status { color: #ffd994; }
+
+    .node-metrics {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 10px;
+    }
+
+    .mini-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      padding: 5px 7px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.09);
+      color: #cfe5ff;
+      font-size: 11px;
+      font-weight: 800;
+    }
+
+    .empty-slot { min-height: 140px; }
+
+    .side {
+      display: grid;
+      gap: 18px;
+      position: sticky;
+      top: 18px;
+    }
+
+    .side-card { padding: 20px; }
+    .side-card h2 { margin: 0 0 12px; font-size: 22px; display: flex; align-items: center; gap: 8px; }
+    .side-card p, .side-card li { color: var(--muted); line-height: 1.5; }
+    .side-card ul { padding-left: 18px; margin: 0; }
+
+    .gift {
+      border-color: rgba(255,174,46,0.66);
+      background:
+        radial-gradient(circle at 78% 18%, rgba(255,174,46,0.20), transparent 34%),
+        linear-gradient(135deg, rgba(35, 18, 6, 0.88), rgba(18, 10, 36, 0.82));
+    }
+
+    .prize {
+      margin: 10px 0;
+      font-size: 42px;
+      line-height: 1;
+      color: #ffd994;
+      font-weight: 950;
+      text-shadow: 0 0 22px rgba(255,174,46,0.5);
+    }
+
+    .locked { color: var(--muted); }
+    .unlocked { color: #fff2c8; font-weight: 850; }
+
+    .timeline-line { display: grid; gap: 12px; }
+
+    .milestone {
+      display: grid;
+      grid-template-columns: 84px 1fr;
+      gap: 12px;
+      align-items: start;
+      padding-bottom: 12px;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+    }
+
+    .milestone:last-child { border-bottom: 0; padding-bottom: 0; }
+    .milestone b { color: var(--cyan); }
+    .milestone span { color: var(--muted); }
+
+    .sync-status {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 9px 11px;
+      border-radius: 999px;
+      font-size: 13px;
+      font-weight: 850;
+      border: 1px solid rgba(255,255,255,0.1);
+      color: var(--muted);
+      background: rgba(255,255,255,0.04);
+    }
+
+    .sync-status.ok { color: #baffdf; border-color: rgba(86,255,155,0.35); }
+    .sync-status.error { color: #ffd0dc; border-color: rgba(255,90,138,0.42); }
+    .sync-status.pending { color: #ffd994; border-color: rgba(255,174,46,0.42); }
+
+    .modal {
+      position: fixed;
+      inset: 0;
+      display: none;
+      place-items: center;
+      padding: 18px;
+      background: rgba(0, 0, 0, 0.72);
+      z-index: 100;
+    }
+
+    .modal.open { display: grid; }
+
+    .modal-card {
+      width: min(780px, 96vw);
+      max-height: 92vh;
+      overflow: auto;
+      border-radius: 26px;
+      border: 1px solid rgba(24,232,255,0.52);
+      background:
+        radial-gradient(circle at 90% 0%, rgba(255,53,232,0.18), transparent 24%),
+        linear-gradient(135deg, rgba(7, 13, 32, 0.98), rgba(6, 10, 24, 0.96));
+      box-shadow: 0 0 40px rgba(24,232,255,0.38), 0 0 120px rgba(255,53,232,0.18);
+      padding: 24px;
+      animation: pop 170ms ease-out;
+    }
+
+    @keyframes pop {
+      from { transform: scale(0.96); opacity: 0; }
+      to { transform: scale(1); opacity: 1; }
+    }
+
+    .modal-head {
+      display: flex;
+      justify-content: space-between;
+      gap: 16px;
+      align-items: start;
+      margin-bottom: 16px;
+    }
+
+    .modal-head h2 { margin: 0; line-height: 1.15; display: flex; align-items: center; gap: 8px; }
+
+    .close {
+      width: 42px;
+      height: 42px;
+      border-radius: 14px;
+      border: 1px solid rgba(255,255,255,0.14);
+      color: var(--text);
+      background: rgba(255,255,255,0.06);
+      cursor: pointer;
+      font-size: 22px;
+    }
+
+    .deadline-badge {
+      display: inline-flex;
+      margin-top: 10px;
+      padding: 8px 11px;
+      border-radius: 999px;
+      color: #ffd994;
+      background: rgba(255,174,46,0.1);
+      border: 1px solid rgba(255,174,46,0.5);
+      font-weight: 900;
+    }
+
+    .checklist {
+      display: grid;
+      gap: 8px;
+      margin: 16px 0;
+      padding: 14px;
+      border-radius: 18px;
+      background: rgba(255,255,255,0.045);
+      border: 1px solid rgba(255,255,255,0.08);
+      color: #cfe5ff;
+    }
+
+    .fields { display: grid; gap: 12px; margin-top: 14px; }
+
+    .daily-box {
+      margin-top: 16px;
+      padding: 14px;
+      border-radius: 18px;
+      border: 1px solid rgba(255,174,46,0.28);
+      background: rgba(255,174,46,0.055);
+    }
+
+    .daily-box h3 { margin: 0 0 8px; font-size: 18px; }
+
+    .daily-note {
+      color: var(--muted);
+      font-size: 13px;
+      margin-bottom: 12px;
+      line-height: 1.45;
+    }
+
+    .daily-grid {
+      display: grid;
+      gap: 10px;
+      max-height: 360px;
+      overflow: auto;
+      padding-right: 4px;
+    }
+
+    .day-row {
+      display: grid;
+      grid-template-columns: 118px 1fr;
+      gap: 10px;
+      align-items: start;
+      padding: 10px;
+      border-radius: 14px;
+      background: rgba(255,255,255,0.045);
+      border: 1px solid rgba(255,255,255,0.08);
+    }
+
+    .day-check {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: #cfe5ff;
+      font-size: 13px;
+      font-weight: 850;
+      cursor: pointer;
+      margin: 0;
+    }
+
+    .day-check input {
+      width: 18px;
+      height: 18px;
+      accent-color: var(--green);
+    }
+
+    .day-row textarea { min-height: 56px; }
+
+    label {
+      display: block;
+      margin-bottom: 6px;
+      color: var(--muted);
+      font-size: 13px;
+      font-weight: 800;
+    }
+
+    input, textarea, select {
+      width: 100%;
+      border: 1px solid rgba(24,232,255,0.25);
+      border-radius: 15px;
+      background: rgba(0, 0, 0, 0.28);
+      color: var(--text);
+      padding: 12px 13px;
+      outline: none;
+      font: inherit;
+    }
+
+    textarea { min-height: 82px; resize: vertical; }
+    input:focus, textarea:focus, select:focus { border-color: var(--cyan); box-shadow: 0 0 0 3px rgba(24,232,255,0.12); }
+
+    .modal-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 18px;
+    }
+
+    .action { border-radius: 15px; padding: 12px 15px; }
+    .action.done { border-color: rgba(86,255,155,0.7); background: linear-gradient(135deg, rgba(86,255,155,0.25), rgba(24,232,255,0.14)); }
+    .action.reset { border-color: rgba(255,90,138,0.5); background: rgba(255,90,138,0.12); }
+    .action.supabase { border-color: rgba(147,92,255,0.75); background: linear-gradient(135deg, rgba(147,92,255,0.25), rgba(24,232,255,0.14)); }
+
+    .confetti {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      overflow: hidden;
+      z-index: 200;
+    }
+
+    .piece {
+      position: absolute;
+      width: 9px;
+      height: 14px;
+      background: var(--cyan);
+      animation: fall 1200ms ease-out forwards;
+    }
+
+    @keyframes fall {
+      0% { transform: translateY(-20px) rotate(0deg); opacity: 1; }
+      100% { transform: translateY(100vh) rotate(720deg); opacity: 0; }
+    }
+
+    @media (max-width: 1100px) {
+      .main-grid { grid-template-columns: 1fr; }
+      .side { position: static; grid-template-columns: repeat(2, minmax(0,1fr)); }
+      .dashboard { grid-template-columns: repeat(2, 1fr); }
+    }
+
+    @media (max-width: 860px) {
+      .dashboard { grid-template-columns: 1fr; }
+      .map-board { grid-template-columns: 72px minmax(0, 1fr); gap: 14px; }
+      .road-column { grid-column: 1; grid-row: 1 / span 8; min-height: 0; }
+      .road-line { width: 14px; }
+      .bike-token { width: 40px; height: 40px; transform: translateX(6px); font-size: 32px; }
+      .bike-token::after { left: -12px; top: 22px; width: 14px; height: 2px; }
+      .node.left, .node.right { grid-column: 2; }
+      .node.left::after, .node.right::after { left: -18px; right: auto; width: 18px; }
+      .empty-slot { display: none; }
+      .side { grid-template-columns: 1fr; }
+    }
+
+    @media (max-width: 640px) {
+      .app { width: 94vw; padding-top: 16px; }
+      .hero { min-height: 720px; background-position: center right 38%; border-radius: 22px; }
+      .hero-content { padding: 24px; }
+      .map { padding: 16px; border-radius: 20px; }
+      .map-title { flex-direction: column; align-items: start; }
+      .node { min-height: 132px; padding: 14px; }
+      .modal-card { padding: 18px; }
+      .prize { font-size: 34px; }
+      .day-row { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <div class="confetti" id="confetti"></div>
+
+  <main class="app">
+    <section class="hero">
+      <div class="hero-content">
+        <div class="eyebrow">CYBER ROADMAP · GAMEDEV QUEST</div>
+        <h1>Дорожная карта</h1>
+        <p class="subtitle">Интерактивная карта пути: от первой мини-игры до портфеля браузерных игр и цели 200 000 ₽ в месяц. Уровни меняют состояние, мотоцикл движется, отчёты сохраняются локально и готовятся к выгрузке в Supabase.</p>
+        <div class="hero-actions">
+          <div class="pill"><span id="goalIcon"></span> Цель: 200 000 ₽ / месяц</div>
+          <button class="button-primary" onclick="scrollToMap()">Открыть карту</button>
+        </div>
+      </div>
+    </section>
+
+    <section class="dashboard">
+      <div class="card">
+        <div class="card-label">Прогресс прохождения</div>
+        <div class="card-value"><span id="progressText">0</span>%</div>
+        <div class="progress-wrap"><div class="progress-bar" id="progressBar"></div></div>
+      </div>
+      <div class="card">
+        <div class="card-label">Готово уровней</div>
+        <div class="card-value"><span id="doneCount">0</span> / 8</div>
+      </div>
+      <div class="card">
+        <div class="card-label">Текущий уровень</div>
+        <div class="card-value small" id="currentLevelText">Уровень 1</div>
+      </div>
+      <div class="card">
+        <div class="card-label">Синхронизация</div>
+        <div class="card-value small"><span class="sync-status" id="syncStatus">Supabase не подключён</span></div>
+      </div>
+    </section>
+
+    <div class="main-grid">
+      <section class="map" id="map">
+        <div class="map-title">
+          <div>
+            <h2>Карта уровней</h2>
+            <span>Нажми на уровень: откроется окно с дедлайном, формами, метриками и отправкой отчёта.</span>
+          </div>
+          <button class="button-primary" onclick="exportData()">Скачать прогресс</button>
+        </div>
+
+        <div class="map-board" id="mapBoard">
+          <div class="road-column" aria-hidden="true">
+            <div class="road-line"></div>
+            <div class="bike-token" id="bikeToken" title="Ты на маршруте">🏍️</div>
+          </div>
+        </div>
+      </section>
+
+      <aside class="side">
+        <section class="side-card gift">
+          <h2><span id="giftIcon"></span> Финальный приз</h2>
+          <div class="prize" id="rewardText">0 ₽</div>
+          <p id="giftText" class="locked">За каждый закрытый уровень открывается личная награда. Финальный приз 8-го уровня — 100 000 ₽ только на себя.</p>
+        </section>
+
+        <section class="side-card">
+          <h2>Ключевой принцип</h2>
+          <p>Сначала не гонимся за «пассивом». Сначала доказываем: можно выпустить игру, получить метрики и улучшать результат по данным.</p>
+        </section>
+
+        <section class="side-card">
+          <h2>Инструменты старта</h2>
+          <ul>
+            <li>Codex</li>
+            <li>Phaser</li>
+            <li>HTML5</li>
+            <li>Яндекс Игры</li>
+            <li>Supabase для отчётов</li>
+          </ul>
+        </section>
+
+        <section class="side-card">
+          <h2>План по времени</h2>
+          <div class="timeline-line">
+            <div class="milestone"><b>Старт</b><span>май 2026</span></div>
+            <div class="milestone"><b>1–3 шаг</b><span>май–июль 2026</span></div>
+            <div class="milestone"><b>4–5 шаг</b><span>август–октябрь 2026</span></div>
+            <div class="milestone"><b>6–7 шаг</b><span>ноябрь 2026 – апрель 2027</span></div>
+            <div class="milestone"><b>8 шаг</b><span>апрель – май 2027</span></div>
+          </div>
+        </section>
+      </aside>
+    </div>
+  </main>
+
+  <div class="modal" id="modal" onclick="closeModalOnBackdrop(event)">
+    <div class="modal-card" role="dialog" aria-modal="true">
+      <div class="modal-head">
+        <div>
+          <h2 id="modalTitle"></h2>
+          <div class="deadline-badge" id="modalDeadline"></div>
+        </div>
+        <button class="close" onclick="closeModal()">×</button>
+      </div>
+      <div class="checklist" id="modalChecklist"></div>
+      <div class="daily-box">
+        <h3 id="dailyTitle">Дневник уровня</h3>
+        <div class="daily-note" id="dailyNote"></div>
+        <div class="daily-grid" id="dailyGrid"></div>
+      </div>
+      <div class="fields" id="modalFields"></div>
+      <div class="modal-actions">
+        <button class="action done" id="doneButton" onclick="toggleCurrentDone()">Отметить готовым</button>
+        <button class="action supabase" id="syncButton" onclick="syncCurrentStepToSupabase()">Сохранить отчёт в Supabase</button>
+        <button class="action" onclick="saveCurrentAndClose()">Сохранить локально и закрыть</button>
+        <button class="action reset" onclick="resetAll()">Сбросить всё</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const STORAGE_KEY = "cyber-roadmap-game-200k-v5";
+
+    const SUPABASE_CONFIG = {
+      enabled: false,
+      url: "https://YOUR_PROJECT_ID.supabase.co",
+      anonKey: "YOUR_PUBLIC_ANON_KEY",
+      tableName: "roadmap_reports",
+      ownerId: "lyubov-main-roadmap"
+    };
+
+    let currentStepId = null;
+
+    const colors = ["#18e8ff", "#18e8ff", "#56ff9b", "#ffae2e", "#ff35e8", "#935cff", "#4aa3ff", "#ff35e8"];
+
+    const steps = [
+      {
+        id: 1,
+        title: "1 опубликованная игра + реальные метрики",
+        deadline: "2–4 недели",
+        icon: "gamepad",
+        side: "left",
+        reward: 5000,
+        days: 14,
+        checklist: ["Выпустить первую HTML5-игру", "Опубликовать на Яндекс Играх", "Получить первые реальные данные"],
+        fields: [
+          ["gameUrl", "Ссылка на игру / страницу публикации"],
+          ["releaseNotes", "Что опубликовано: жанр, механика, версия, статус модерации"],
+          ["firstData", "Первые данные: показы, игроки, первые ошибки, первые отзывы"]
+        ]
+      },
+      {
+        id: 2,
+        title: "Понять цифры",
+        deadline: "2 недели",
+        icon: "chart",
+        side: "right",
+        reward: 10000,
+        days: 10,
+        checklist: ["Удержание", "Время в игре", "Повторные заходы", "Доход на игрока"],
+        fields: [
+          ["analyticsUrl", "Ссылка на таблицу / документ с метриками"],
+          ["metrics", "Метрики: DAU, сессии, время в игре, retention D1/D7, показы рекламы, доход"],
+          ["conclusion", "Вывод: что работает, что проваливается, что проверяем дальше"]
+        ]
+      },
+      {
+        id: 3,
+        title: "Улучшить первую игру",
+        deadline: "2–3 недели",
+        icon: "tools",
+        side: "left",
+        reward: 15000,
+        days: 14,
+        checklist: ["Исправить слабые места", "Повысить удержание", "Улучшить монетизацию"],
+        fields: [
+          ["changesUrl", "Ссылка на changelog / документ улучшений"],
+          ["changes", "Что изменено: управление, уровни, баланс, реклама, визуал, скорость"],
+          ["afterMetrics", "Метрики после улучшений: что выросло / что не изменилось"]
+        ]
+      },
+      {
+        id: 4,
+        title: "Сделать 3–5 игр",
+        deadline: "6–10 недель",
+        icon: "cubes",
+        side: "right",
+        reward: 20000,
+        days: 30,
+        checklist: ["Протестировать разные механики", "Найти, что заходит лучше", "Собрать первые мини-активы"],
+        fields: [
+          ["portfolioUrl", "Ссылка на список игр / портфель"],
+          ["gamesList", "Список игр: название, жанр, ссылка, дата публикации"],
+          ["comparison", "Сравнение: какая игра даёт лучший отклик и почему"]
+        ]
+      },
+      {
+        id: 5,
+        title: "Выявить игру-лидера",
+        deadline: "2–4 недели",
+        icon: "crown",
+        side: "left",
+        reward: 25000,
+        days: 14,
+        checklist: ["Выбрать самую сильную", "Масштабировать удачную механику", "Делать улучшения на основе данных"],
+        fields: [
+          ["leaderUrl", "Ссылка на игру-лидера"],
+          ["leaderReason", "Почему это лидер: удержание, доход, рост, отзывы, потенциал"],
+          ["scalePlan", "План масштабирования: reskin, новые уровни, серия, трафик"]
+        ]
+      },
+      {
+        id: 6,
+        title: "Собрать портфель 10–20 игр",
+        deadline: "3–5 месяцев",
+        icon: "portfolio",
+        side: "right",
+        reward: 30000,
+        days: 45,
+        checklist: ["Несколько источников дохода", "Серия похожих игр", "Стабильность выше, чем у одной игры"],
+        fields: [
+          ["bigPortfolioUrl", "Ссылка на полный портфель"],
+          ["portfolioStats", "Статистика портфеля: игры, активные игроки, доход, лидеры, слабые игры"],
+          ["systemNotes", "Что уже можно делать по шаблону и автоматизировать через Codex"]
+        ]
+      },
+      {
+        id: 7,
+        title: "1–2 игры дают основной доход",
+        deadline: "2–4 месяца",
+        icon: "rocket",
+        side: "left",
+        reward: 35000,
+        days: 30,
+        checklist: ["Остальные поддерживают портфель", "Фокус на лидерах", "Рост за счёт улучшений и трафика"],
+        fields: [
+          ["incomeProof", "Ссылка на отчёт по доходу"],
+          ["mainEarners", "Какие 1–2 игры дают основной доход и сколько"],
+          ["growthActions", "Действия роста: обновления, продвижение, новые версии, трафик"]
+        ]
+      },
+      {
+        id: 8,
+        title: "Система, а не случайность",
+        deadline: "к 9–12 месяцу",
+        icon: "trophy",
+        side: "right",
+        reward: 100000,
+        days: 30,
+        checklist: ["Новые игры по шаблону", "Аналитика → улучшение → масштаб", "Основа для крупных проектов"],
+        fields: [
+          ["systemUrl", "Ссылка на финальный отчёт / систему"],
+          ["monthlyIncome", "Доход за месяц: факт, источники, сколько до 200 000 ₽"],
+          ["prizePlan", "Подарок себе: на что потратить 100 000 ₽ только для себя"]
+        ]
+      }
+    ];
+
+    let state = loadState();
+
+    function iconSVG(name, size = "") {
+      const cls = `cyber-icon ${size}`.trim();
+      const common = `class="${cls}" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"`;
+      const glow = `<defs><filter id="g-${name}" x="-60%" y="-60%" width="220%" height="220%"><feGaussianBlur stdDeviation="2.2" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter><linearGradient id="l-${name}" x1="8" y1="8" x2="56" y2="56"><stop stop-color="#18e8ff"/><stop offset="0.55" stop-color="#ff35e8"/><stop offset="1" stop-color="#ffae2e"/></linearGradient></defs>`;
+      const gradStroke = `stroke="url(#l-${name})" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round" filter="url(#g-${name})"`;
+      const gradFill = `fill="url(#l-${name})" filter="url(#g-${name})"`;
+      const icons = {
+        gamepad: `<svg ${common}>${glow}<path ${gradStroke} d="M20 28h24c7 0 11 5 12 16 .4 5-4 8-8 5l-7-5H23l-7 5c-4 3-8 0-8-5 1-11 5-16 12-16Z"/><path ${gradStroke} d="M22 38h10M27 33v10M43 36h.1M50 42h.1"/></svg>`,
+        chart: `<svg ${common}>${glow}<path ${gradStroke} d="M12 52h42M18 46V34M30 46V24M42 46V16"/><path ${gradStroke} d="M16 24c10 2 19-1 31-12"/><path ${gradStroke} d="M45 12h8v8"/></svg>`,
+        tools: `<svg ${common}>${glow}<path ${gradStroke} d="M18 14l32 32-6 6-32-32 6-6Z"/><path ${gradStroke} d="M42 13a10 10 0 0 0 9 13L34 43l-7-7 17-17a10 10 0 0 0-2-6Z"/><path ${gradStroke} d="M18 48l9-9"/></svg>`,
+        cubes: `<svg ${common}>${glow}<path ${gradStroke} d="M32 9l13 7-13 7-13-7 13-7Z"/><path ${gradStroke} d="M19 16v15l13 7 13-7V16"/><path ${gradStroke} d="M16 34l13 7-13 7-13-7 13-7ZM48 34l13 7-13 7-13-7 13-7Z"/><path ${gradStroke} d="M3 41v11l13 7 13-7V41M35 41v11l13 7 13-7V41"/></svg>`,
+        crown: `<svg ${common}>${glow}<path ${gradStroke} d="M10 46h44l-4-26-13 12-5-18-5 18-13-12-4 26Z"/><path ${gradStroke} d="M14 54h36"/><circle ${gradFill} cx="32" cy="14" r="3"/></svg>`,
+        portfolio: `<svg ${common}>${glow}<path ${gradStroke} d="M14 22h36a5 5 0 0 1 5 5v21a5 5 0 0 1-5 5H14a5 5 0 0 1-5-5V27a5 5 0 0 1 5-5Z"/><path ${gradStroke} d="M24 22v-5a4 4 0 0 1 4-4h8a4 4 0 0 1 4 4v5M9 34h46M28 38h8"/></svg>`,
+        rocket: `<svg ${common}>${glow}<path ${gradStroke} d="M34 8c10 3 17 10 20 20L38 44 20 26 34 8Z"/><path ${gradStroke} d="M20 26l-9 3 12 12 3-9M38 44l-3 9-12-12 9-3"/><circle ${gradFill} cx="40" cy="22" r="4"/><path ${gradStroke} d="M20 46c-4 2-7 5-9 9 4-2 7-5 9-9Z"/></svg>`,
+        trophy: `<svg ${common}>${glow}<path ${gradStroke} d="M22 12h20v14c0 8-4 14-10 14S22 34 22 26V12Z"/><path ${gradStroke} d="M22 18H12v5c0 7 5 12 12 12M42 18h10v5c0 7-5 12-12 12M32 40v9M22 54h20"/></svg>`,
+        gift: `<svg ${common}>${glow}<path ${gradStroke} d="M10 25h44v10H10V25ZM15 35h34v20H15V35Z"/><path ${gradStroke} d="M32 25v30M20 20c0-5 4-8 8-4 2 2 4 9 4 9s-9 0-12-5ZM44 20c0-5-4-8-8-4-2 2-4 9-4 9s9 0 12-5Z"/></svg>`,
+        flag: `<svg ${common}>${glow}<path ${gradStroke} d="M16 54V10M16 12h32l-5 10 5 10H16"/></svg>`,
+        calendar: `<svg ${common}>${glow}<path ${gradStroke} d="M14 16h36v36H14V16ZM14 26h36M23 10v10M41 10v10"/></svg>`,
+        document: `<svg ${common}>${glow}<path ${gradStroke} d="M18 10h21l9 9v35H18V10Z"/><path ${gradStroke} d="M39 10v10h9M25 30h16M25 39h16M25 48h10"/></svg>`,
+        cloud: `<svg ${common}>${glow}<path ${gradStroke} d="M22 47h24a10 10 0 0 0 1-20 15 15 0 0 0-28-4A12 12 0 0 0 22 47Z"/><path ${gradStroke} d="M32 42V27M25 34l7-7 7 7"/></svg>`,
+        save: `<svg ${common}>${glow}<path ${gradStroke} d="M14 12h30l6 6v34H14V12Z"/><path ${gradStroke} d="M22 12v16h20V12M22 52V38h20v14"/></svg>`,
+        check: `<svg ${common}>${glow}<circle ${gradStroke} cx="32" cy="32" r="22"/><path ${gradStroke} d="M22 32l7 7 15-17"/></svg>`,
+        bolt: `<svg ${common}>${glow}<path ${gradStroke} d="M36 6 16 36h14l-2 22 20-32H34l2-20Z"/></svg>`
+      };
+      return icons[name] || icons.document;
+    }
+
+    function loadState() {
+      try { return JSON.parse(localStorage.getItem(STORAGE_KEY)) || {}; }
+      catch { return {}; }
+    }
+
+    function saveState() {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+      renderStats();
+      renderMap();
+      moveBike();
+    }
+
+    function getStepCompletionStatus(step) {
+      const saved = state[step.id] || {};
+      if (saved.done) return "done";
+      const hasAnyField = step.fields.some(([key]) => Boolean(saved[key] && String(saved[key]).trim()));
+      return hasAnyField ? "in-progress" : "empty";
+    }
+
+    function getStepFieldCount(step) {
+      const saved = state[step.id] || {};
+      return step.fields.filter(([key]) => Boolean(saved[key] && String(saved[key]).trim())).length;
+    }
+
+    function renderMap() {
+      const board = document.getElementById("mapBoard");
+      board.querySelectorAll(".node, .empty-slot").forEach(el => el.remove());
+
+      steps.forEach((step, index) => {
+        const saved = state[step.id] || {};
+        const color = colors[index];
+        const status = getStepCompletionStatus(step);
+        const fieldCount = getStepFieldCount(step);
+        const dailyDone = getDailyDoneCount(step);
+        const syncIcon = saved.syncedAt ? iconSVG("cloud", "small") : iconSVG("save", "small");
+        const statusText = status === "done" ? "✓ уровень закрыт" : status === "in-progress" ? "в работе" : "нажать и заполнить";
+        const icon = status === "done" ? iconSVG("check") : status === "in-progress" ? iconSVG("bolt") : iconSVG(step.icon);
+
+        const node = document.createElement("button");
+        node.className = `node ${step.side} ${status === "done" ? "done" : ""} ${status === "in-progress" ? "in-progress" : ""}`;
+        node.style.setProperty("--color", color);
+        node.style.gridRow = String(step.id);
+        node.onclick = () => openModal(step.id);
+        node.innerHTML = `
+          <div class="node-number">${step.id}</div>
+          <h3>${icon} ${step.title}</h3>
+          <small>Срок: ${step.deadline}</small>
+          <div class="reward-badge">${iconSVG("gift", "small")} Награда: ${formatRub(step.reward)}</div>
+          <div class="status">${statusText}</div>
+          <div class="node-metrics">
+            <span class="mini-badge">${iconSVG("calendar", "small")} ${dailyDone}/${step.days} дней</span>
+            <span class="mini-badge">${iconSVG("document", "small")} ${fieldCount}/${step.fields.length}</span>
+            <span class="mini-badge">${syncIcon} ${saved.syncedAt ? "выгружено" : "локально"}</span>
+          </div>
+        `;
+
+        const empty = document.createElement("div");
+        empty.className = "empty-slot";
+        empty.style.gridRow = String(step.id);
+        empty.style.gridColumn = step.side === "left" ? "3" : "1";
+
+        board.appendChild(node);
+        board.appendChild(empty);
+      });
+    }
+
+    function openModal(stepId) {
+      currentStepId = stepId;
+      const step = steps.find(s => s.id === stepId);
+      const saved = state[stepId] || {};
+      document.getElementById("modalTitle").innerHTML = `${iconSVG(step.icon)} Уровень ${step.id}: ${escapeHtml(step.title)}`;
+      document.getElementById("modalDeadline").textContent = `Срок: ${step.deadline}`;
+      document.getElementById("modalChecklist").innerHTML = [
+        ...step.checklist.map(item => `<div>• ${escapeHtml(item)}</div>`),
+        `<div>${iconSVG("gift", "small")} Награда за уровень: <b>${formatRub(step.reward)}</b></div>`
+      ].join("");
+      renderDailyTracker(step, saved);
+      document.getElementById("modalFields").innerHTML = step.fields.map(([key, label]) => {
+        const value = saved[key] || "";
+        const isLong = key.toLowerCase().includes("notes") || key.toLowerCase().includes("metrics") || key.toLowerCase().includes("conclusion") || key.toLowerCase().includes("changes") || key.toLowerCase().includes("list") || key.toLowerCase().includes("plan") || key.toLowerCase().includes("stats") || key.toLowerCase().includes("reason") || key.toLowerCase().includes("actions") || key.toLowerCase().includes("data");
+        return `
+          <div>
+            <label for="field-${key}">${escapeHtml(label)}</label>
+            ${isLong
+              ? `<textarea id="field-${key}" data-key="${key}" oninput="liveSaveCurrentFields()">${escapeHtml(value)}</textarea>`
+              : `<input id="field-${key}" data-key="${key}" value="${escapeAttr(value)}" oninput="liveSaveCurrentFields()" />`}
+          </div>`;
+      }).join("");
+      document.getElementById("doneButton").textContent = saved.done ? "✓ Уровень готов — снять отметку" : "Отметить уровень готовым";
+      document.getElementById("syncButton").textContent = saved.syncedAt ? "Обновить отчёт в Supabase" : "Сохранить отчёт в Supabase";
+      document.getElementById("modal").classList.add("open");
+    }
+
+    function saveCurrentFields() {
+      if (!currentStepId) return;
+      state[currentStepId] = state[currentStepId] || {};
+      document.querySelectorAll("#modalFields [data-key]").forEach(field => {
+        state[currentStepId][field.dataset.key] = field.value;
+      });
+      document.querySelectorAll("#dailyGrid [data-day]").forEach(field => {
+        const day = field.dataset.day;
+        state[currentStepId].daily = state[currentStepId].daily || {};
+        state[currentStepId].daily[day] = state[currentStepId].daily[day] || {};
+        if (field.type === "checkbox") state[currentStepId].daily[day].done = field.checked;
+        if (field.tagName === "TEXTAREA") state[currentStepId].daily[day].result = field.value;
+      });
+      state[currentStepId].updatedAt = new Date().toISOString();
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+    }
+
+    function liveSaveCurrentFields() {
+      saveCurrentFields();
+      renderStats();
+      renderMap();
+      moveBike();
+    }
+
+    async function toggleCurrentDone() {
+      if (!currentStepId) return;
+      saveCurrentFields();
+      state[currentStepId] = state[currentStepId] || {};
+      state[currentStepId].done = !state[currentStepId].done;
+      state[currentStepId].doneAt = state[currentStepId].done ? new Date().toISOString() : null;
+      saveState();
+      openModal(currentStepId);
+      if (state[currentStepId].done) {
+        celebrate(currentStepId === 8 ? 90 : 34);
+        await syncStepToSupabase(currentStepId, { silentIfDisabled: true });
+      }
+    }
+
+    function saveCurrentAndClose() {
+      saveCurrentFields();
+      saveState();
+      closeModal();
+    }
+
+    function closeModal() {
+      saveCurrentFields();
+      document.getElementById("modal").classList.remove("open");
+      currentStepId = null;
+      saveState();
+    }
+
+    function closeModalOnBackdrop(event) {
+      if (event.target.id === "modal") closeModal();
+    }
+
+    function renderStats() {
+      const done = steps.filter(step => state[step.id]?.done).length;
+      const inProgress = steps.filter(step => getStepCompletionStatus(step) === "in-progress").length;
+      const rewardSum = steps.reduce((sum, step) => sum + (state[step.id]?.done ? step.reward : 0), 0);
+      const percent = Math.round((done / steps.length) * 100);
+      const currentLevel = Math.min(done + 1, 8);
+      document.getElementById("doneCount").textContent = done;
+      document.getElementById("progressText").textContent = percent;
+      document.getElementById("progressBar").style.width = percent + "%";
+      document.getElementById("currentLevelText").textContent = done === 8 ? "Финиш открыт" : `Уровень ${currentLevel} · в работе: ${inProgress}`;
+
+      document.getElementById("rewardText").textContent = formatRub(rewardSum);
+      const giftText = document.getElementById("giftText");
+      if (state[8]?.done) {
+        giftText.className = "unlocked";
+        giftText.textContent = "Финальный приз открыт: 100 000 ₽ только на себя. Общая сумма личных наград по карте: " + formatRub(rewardSum) + ".";
+      } else if (rewardSum > 0) {
+        giftText.className = "unlocked";
+        giftText.textContent = "Уже открыто личных наград: " + formatRub(rewardSum) + ". Следующая награда откроется после закрытия следующего уровня.";
+      } else {
+        giftText.className = "locked";
+        giftText.textContent = "За каждый закрытый уровень открывается личная награда. Финальный приз 8-го уровня — 100 000 ₽ только на себя.";
+      }
+
+      updateSyncStatus();
+    }
+
+    function moveBike() {
+      const done = steps.filter(step => state[step.id]?.done).length;
+      const inProgressIndex = steps.findIndex(step => getStepCompletionStatus(step) === "in-progress");
+      const visualProgress = done > 0 ? done : inProgressIndex >= 0 ? inProgressIndex + 0.35 : 0;
+
+      const bike = document.getElementById("bikeToken");
+      const maxOffset = 825;
+      const offset = Math.round((visualProgress / 8) * maxOffset);
+
+      bike.style.setProperty("--bike-offset", `${offset}px`);
+    }
+
+    function buildStepPayload(stepId) {
+      const step = steps.find(s => s.id === stepId);
+      const saved = state[stepId] || {};
+      const fieldData = {};
+      step.fields.forEach(([key]) => fieldData[key] = saved[key] || "");
+
+      return {
+        owner_id: SUPABASE_CONFIG.ownerId,
+        step_id: step.id,
+        step_title: step.title,
+        deadline: step.deadline,
+        reward_rub: step.reward,
+        days_total: step.days,
+        days_done: getDailyDoneCount(step),
+        is_done: Boolean(saved.done),
+        done_at: saved.doneAt || null,
+        updated_at: new Date().toISOString(),
+        report_data: fieldData,
+        daily_data: saved.daily || {},
+        checklist: step.checklist,
+        local_state: saved
+      };
+    }
+
+    async function syncCurrentStepToSupabase() {
+      if (!currentStepId) return;
+      saveCurrentFields();
+      await syncStepToSupabase(currentStepId, { silentIfDisabled: false });
+      if (currentStepId) openModal(currentStepId);
+    }
+
+    async function syncStepToSupabase(stepId, options = { silentIfDisabled: false }) {
+      const step = steps.find(s => s.id === stepId);
+      if (!step) return;
+
+      if (!SUPABASE_CONFIG.enabled) {
+        if (!options.silentIfDisabled) {
+          setSyncStatus("pending", "Supabase ещё не подключён");
+          alert("Supabase пока не подключён. Данные сохранены локально. В следующем шаге мы вставим URL, anon key и создадим таблицу.");
+        }
+        return;
+      }
+
+      setSyncStatus("pending", "Отправляю в Supabase...");
+      const syncButton = document.getElementById("syncButton");
+      if (syncButton) syncButton.disabled = true;
+
+      try {
+        const payload = buildStepPayload(stepId);
+        const endpoint = `${SUPABASE_CONFIG.url}/rest/v1/${SUPABASE_CONFIG.tableName}`;
+        const response = await fetch(endpoint, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "apikey": SUPABASE_CONFIG.anonKey,
+            "Authorization": `Bearer ${SUPABASE_CONFIG.anonKey}`,
+            "Prefer": "resolution=merge-duplicates,return=representation"
+          },
+          body: JSON.stringify(payload)
+        });
+
+        if (!response.ok) {
+          const text = await response.text();
+          throw new Error(text || `HTTP ${response.status}`);
+        }
+
+        state[stepId] = state[stepId] || {};
+        state[stepId].syncedAt = new Date().toISOString();
+        state[stepId].syncError = null;
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+        setSyncStatus("ok", `Уровень ${stepId} выгружен`);
+        renderMap();
+        renderStats();
+      } catch (error) {
+        state[stepId] = state[stepId] || {};
+        state[stepId].syncError = error.message;
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+        setSyncStatus("error", "Ошибка выгрузки");
+        alert("Не удалось отправить в Supabase. Локальная копия сохранена. Ошибка: " + error.message);
+      } finally {
+        if (syncButton) syncButton.disabled = false;
+      }
+    }
+
+    function updateSyncStatus() {
+      if (!SUPABASE_CONFIG.enabled) {
+        setSyncStatus("pending", "Supabase не подключён");
+        return;
+      }
+      const synced = steps.filter(step => state[step.id]?.syncedAt).length;
+      setSyncStatus("ok", `Выгружено ${synced}/8`);
+    }
+
+    function setSyncStatus(type, text) {
+      const el = document.getElementById("syncStatus");
+      if (!el) return;
+      el.className = `sync-status ${type || ""}`;
+      el.textContent = text;
+    }
+
+    function renderDailyTracker(step, saved) {
+      const daily = saved.daily || {};
+      const dailyDone = getDailyDoneCount(step);
+      document.getElementById("dailyTitle").textContent = `Дневник уровня · ${dailyDone}/${step.days} дней`;
+      document.getElementById("dailyNote").textContent = "Отмечай каждый день: был результат, не было результата, что сделано, какие ссылки/метрики появились. Это защищает от ощущения, что путь стоит на месте.";
+      document.getElementById("dailyGrid").innerHTML = Array.from({ length: step.days }, (_, index) => {
+        const day = index + 1;
+        const item = daily[day] || {};
+        return `
+          <div class="day-row">
+            <label class="day-check">
+              <input type="checkbox" data-day="${day}" ${item.done ? "checked" : ""} oninput="liveSaveCurrentFields()" />
+              День ${day}
+            </label>
+            <textarea data-day="${day}" placeholder="Результат дня: что сделано / какие метрики / если результата нет — почему" oninput="liveSaveCurrentFields()">${escapeHtml(item.result || "")}</textarea>
+          </div>
+        `;
+      }).join("");
+    }
+
+    function getDailyDoneCount(step) {
+      const daily = state[step.id]?.daily || {};
+      return Object.values(daily).filter(item => item?.done).length;
+    }
+
+    function formatRub(value) {
+      return new Intl.NumberFormat("ru-RU").format(value) + " ₽";
+    }
+
+    function scrollToMap() {
+      document.getElementById("map").scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+
+    function exportData() {
+      saveCurrentFields();
+      const data = {
+        title: "Кибер-карта: путь к 200 000 ₽ / месяц",
+        exportedAt: new Date().toISOString(),
+        progress: state
+      };
+      const blob = new Blob([JSON.stringify(data, null, 2)], { type: "application/json" });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = "cyber-roadmap-progress-200k.json";
+      a.click();
+      URL.revokeObjectURL(url);
+    }
+
+    function resetAll() {
+      const ok = confirm("Сбросить весь прогресс и записи из браузера?");
+      if (!ok) return;
+      state = {};
+      localStorage.removeItem(STORAGE_KEY);
+      renderStats();
+      renderMap();
+      moveBike();
+      closeModal();
+    }
+
+    function celebrate(amount = 40) {
+      const root = document.getElementById("confetti");
+      const confettiColors = ["#18e8ff", "#ff35e8", "#ffae2e", "#56ff9b", "#935cff"];
+      for (let i = 0; i < amount; i++) {
+        const piece = document.createElement("div");
+        piece.className = "piece";
+        piece.style.left = Math.random() * 100 + "vw";
+        piece.style.background = confettiColors[Math.floor(Math.random() * confettiColors.length)];
+        piece.style.animationDelay = Math.random() * 220 + "ms";
+        piece.style.transform = `rotate(${Math.random() * 180}deg)`;
+        root.appendChild(piece);
+        setTimeout(() => piece.remove(), 1500);
+      }
+    }
+
+    function escapeHtml(value) {
+      return String(value)
+        .replaceAll("&", "&amp;")
+        .replaceAll("<", "&lt;")
+        .replaceAll(">", "&gt;");
+    }
+
+    function escapeAttr(value) {
+      return escapeHtml(value).replaceAll('"', "&quot;");
+    }
+
+    window.addEventListener("keydown", event => {
+      if (event.key === "Escape") closeModal();
+    });
+
+    document.getElementById("goalIcon").innerHTML = iconSVG("flag", "small");
+    document.getElementById("giftIcon").innerHTML = iconSVG("gift");
+    renderMap();
+    renderStats();
+    moveBike();
+  </script>
+</body>
+</html>
